@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        label {
+            width: 100px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 250px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .error-border {
+            border: 2px solid red;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Form Validation</h2>
+        <form id="myForm" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name">
+                <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email">
+                <span class="error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="website">Website:</label>
+                <input type="text" id="website">
+                <span class="error" id="websiteError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" rows="4"></textarea>
+                <span class="error" id="messageError"></span>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(e => e.innerText = "");
+            document.querySelectorAll('input, textarea').forEach(e => e.classList.remove('error-border'));
+
+            // Name Validation
+            let name = document.getElementById("name").value.trim();
+            if (name === "") {
+                document.getElementById("nameError").innerText = "This field is required";
+                document.getElementById("name").classList.add("error-border");
+                isValid = false;
+            }
+
+            // Email Validation
+            let email = document.getElementById("email").value.trim();
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === "") {
+                document.getElementById("emailError").innerText = "A valid email address is required";
+                document.getElementById("email").classList.add("error-border");
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email";
+                document.getElementById("email").classList.add("error-border");
+                isValid = false;
+            }
+
+            // Website Validation
+            let website = document.getElementById("website").value.trim();
+            let urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+            if (website === "") {
+                document.getElementById("websiteError").innerText = "A valid URL is required";
+                document.getElementById("website").classList.add("error-border");
+                isValid = false;
+            } else if (!urlPattern.test(website)) {
+                document.getElementById("websiteError").innerText = "Enter a valid URL";
+                document.getElementById("website").classList.add("error-border");
+                isValid = false;
+            }
+
+            // Message Validation
+            let message = document.getElementById("message").value.trim();
+            if (message === "") {
+                document.getElementById("messageError").innerText = "This field is required";
+                document.getElementById("message").classList.add("error-border");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>

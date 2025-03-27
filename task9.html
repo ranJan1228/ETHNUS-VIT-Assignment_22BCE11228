@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: left;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to User Management</h1>
+    <div class="container">
+        <h2>User Registration</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="contact" placeholder="Contact">
+        <input type="text" id="address" placeholder="Address">
+        <button onclick="registerUser()">Register</button>
+    </div>
+    
+    <h2>Registered Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            <!-- User data will be inserted here -->
+        </tbody>
+    </table>
+    
+    <script>
+        function registerUser() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let contact = document.getElementById("contact").value;
+            let address = document.getElementById("address").value;
+
+            if (name && email && contact && address) {
+                let tableBody = document.getElementById("userTableBody");
+                let newRow = `<tr><td>${name}</td><td>${email}</td><td>${contact}</td><td>${address}</td></tr>`;
+                tableBody.innerHTML += newRow;
+                
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("contact").value = "";
+                document.getElementById("address").value = "";
+            } else {
+                alert("Please fill all fields.");
+            }
+        }
+    </script>
+</body>
+</html>
